@@ -8,9 +8,9 @@ export default defineConfig({
 		fs: {
 			allow: [searchForWorkspaceRoot(process.cwd()), './output']
 		},
-		allowedHosts: ['ogtool.acroatic.com']
+		allowedHosts: true
 	},
 	preview: {
-		allowedHosts: ['ogtool.acroatic.com']
+		allowedHosts: true
 	}
 });
