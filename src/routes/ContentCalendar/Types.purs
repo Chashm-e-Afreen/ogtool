@@ -1,7 +1,7 @@
 module ContentCalendar.Types 
   ( Persona, CompanyInfo, Author, Post, Comment, FinalCalendar
   , PostWithComments, RequestPayload, State, Action(..)
-  , personas, company, keywords
+  , personas, availableCompanies, keywords
   ) where
 
 import Data.Maybe (Maybe)
@@ -33,7 +33,8 @@ type RequestPayload =
   }
 
 type State = 
-  { company :: CompanyInfo
+  { companies :: Array CompanyInfo
+  , selectedCompanyIndex :: Int
   , personas :: Array Persona
   , keywords :: Array String
   , selectedSubreddits :: Array String
@@ -49,6 +50,7 @@ data Action
   = ToggleSubreddit String
   | ToggleKeyword String
   | TogglePersona String
+  | SelectCompany Int
   | SetCalendar FinalCalendar
   | SetLoading Boolean
   | NextWeek
@@ -73,14 +75,27 @@ personas =
   , { pName: "David Ko", pInfo: "Freelance Software Architect. Explains complex technical systems to non-technical stakeholders. He uses Slideforge to create clear, logical diagrams and flows that bridge the communication gap." }
   ]
 
-company :: CompanyInfo
-company =
-  { name: "Slideforge.ai"
-  , website: "https://slideforge.ai"
-  , description: "Slideforge is an AI-powered presentation and storytelling tool that turns outlines or rough notes into polished, professional slide decks. It supports exporting to PowerPoint, Google Slides, and PDF, offers branded templates, and provides an API for developers to integrate slide generation."
-  , subreddits: ["r/PowerPoint", "r/GoogleSlides", "r/consulting", "r/marketing", "r/entrepreneur", "r/startups", "r/smallbusiness", "r/business", "r/productivity", "r/AskAcademia", "r/teachers", "r/education", "r/Canva", "r/ChatGPT", "r/ChatGPTPro", "r/ClaudeAI", "r/artificial", "r/design", "r/contentcreation", "r/presentations"]
-  , postsPerWeek: 3
-  }
+availableCompanies :: Array CompanyInfo
+availableCompanies =
+  [ { name: "Slideforge.ai"
+    , website: "https://slideforge.ai"
+    , description: "Slideforge is an AI-powered presentation and storytelling tool that turns outlines or rough notes into polished, professional slide decks. It supports exporting to PowerPoint, Google Slides, and PDF, offers branded templates, and provides an API for developers to integrate slide generation."
+    , subreddits: ["r/PowerPoint", "r/GoogleSlides", "r/consulting", "r/marketing", "r/entrepreneur", "r/startups", "r/smallbusiness", "r/business", "r/productivity", "r/AskAcademia", "r/teachers", "r/education", "r/Canva", "r/ChatGPT", "r/ChatGPTPro", "r/ClaudeAI", "r/artificial", "r/design", "r/contentcreation", "r/presentations"]
+    , postsPerWeek: 3
+    }
+  , { name: "DevFlow"
+    , website: "https://devflow.io"
+    , description: "Streamlined CI/CD pipeline visualizer for engineering managers who need to explain deployment bottlenecks to non-technical stakeholders."
+    , subreddits: ["r/devops", "r/softwareengineering", "r/programming", "r/management"]
+    , postsPerWeek: 2
+    }
+  , { name: "EcoTrack"
+    , website: "https://ecotrack.app"
+    , description: "Personal carbon footprint tracker that uses banking data to suggest lifestyle changes. Gamifies sustainability for Gen Z users."
+    , subreddits: ["r/sustainability", "r/environment", "r/eco", "r/zero-waste"]
+    , postsPerWeek: 5
+    }
+  ]
 
 keywords :: Array String
 keywords = [ "best ai presentation maker", "ai slide deck tool", "pitch deck generator", "alternatives to PowerPoint", "how to make slides faster", "design help for slides", "Canva alternative for presentations", "Claude vs Slideforge", "best tool for business decks", "automate my presentations", "need help with pitch deck", "tools for consultants", "tools for startups", "best ai design tool", "Google Slides alternative", "best storytelling tool" ]

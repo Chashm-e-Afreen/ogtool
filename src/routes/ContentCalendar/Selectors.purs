@@ -1,21 +1,31 @@
 module ContentCalendar.Selectors 
-  ( selectCompany, selectPersonas, selectKeywords, selectSelectedSubreddits
+  ( selectCompanies, selectSelectedCompanyIndex, selectCompany
+  , selectPersonas, selectKeywords, selectSelectedSubreddits
   , selectSelectedKeywords, selectSelectedPersonas, selectCalendar
   , selectActiveTab, selectLoading, selectPostsPerWeek, selectPostsWithComments
   , selectCurrentWeek, selectKeywordsString
   ) where
 
 import Prelude
-import Data.Array (filter)
-import Data.Maybe (Maybe(..))
+import Data.Array (filter, (!!))
+import Data.Maybe (Maybe(..), fromMaybe)
 import Data.String.Common (joinWith)
 import Data.Nullable (Nullable, toNullable)
 import Store (Store, useStore)
 import ContentCalendar.Types (CompanyInfo, Persona, FinalCalendar, PostWithComments)
 import ContentCalendar.Store (storeBundle)
 
+selectCompanies :: Store (Array CompanyInfo)
+selectCompanies = useStore storeBundle _.companies
+
+selectSelectedCompanyIndex :: Store Int
+selectSelectedCompanyIndex = useStore storeBundle _.selectedCompanyIndex
+
 selectCompany :: Store CompanyInfo
-selectCompany = useStore storeBundle _.company
+selectCompany = useStore storeBundle \s -> 
+  fromMaybe 
+    { name: "", website: "", description: "", subreddits: [], postsPerWeek: 0 } 
+    (s.companies !! s.selectedCompanyIndex)
 
 selectPersonas :: Store (Array Persona)
 selectPersonas = useStore storeBundle _.personas
@@ -42,7 +52,8 @@ selectLoading :: Store Boolean
 selectLoading = useStore storeBundle _.loading
 
 selectPostsPerWeek :: Store Int
-selectPostsPerWeek = useStore storeBundle (\s -> s.company.postsPerWeek)
+selectPostsPerWeek = useStore storeBundle \s -> 
+  fromMaybe 0 (_.postsPerWeek <$> (s.companies !! s.selectedCompanyIndex))
 
 selectPostsWithComments :: Store (Array PostWithComments)
 selectPostsWithComments = useStore storeBundle \s -> 

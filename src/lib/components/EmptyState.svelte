@@ -1,5 +1,6 @@
 <script>
-    import { selectLoading as loading, generate } from '@output/ContentCalendar';
+    import { selectLoading as loading } from '@output/ContentCalendar.Selectors';
+    import { generate } from '@output/ContentCalendar.Actions';
 </script>
 
 <div

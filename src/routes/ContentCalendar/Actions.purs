@@ -1,5 +1,5 @@
 module ContentCalendar.Actions 
-  ( toggleSubreddit, toggleKeyword, togglePersona, setActiveTab
+  ( toggleSubreddit, toggleKeyword, togglePersona, selectCompanyAction, setActiveTab
   , onCompanyNameChange, onCompanyDescChange, onPostsPerWeekChange, onKeywordsChange, fetchCalendar
   , generate, nextWeek, prevWeek, setPostsPerWeek, setKeywords, copyToClipboard, saveAndGenerate
   ) where
@@ -8,11 +8,11 @@ import Prelude
 
 import ContentCalendar.Store (storeBundle)
 import ContentCalendar.Types (Action(..), FinalCalendar, Persona)
-import Data.Array (filter, elem)
+import Data.Array (filter, elem, (!!))
 import Data.Either (Either(..))
 import Data.HTTP.Method (Method(..))
 import Data.Int as Int
-import Data.Maybe (Maybe(..))
+import Data.Maybe (Maybe(..), fromMaybe)
 import Effect (Effect)
 import Effect.Aff (launchAff_)
 import Effect.Class (liftEffect)
@@ -34,6 +34,9 @@ toggleKeyword k = void $ storeBundle.dispatch (ToggleKeyword k)
 
 togglePersona :: String -> Effect Unit
 togglePersona p = void $ storeBundle.dispatch (TogglePersona p)
+
+selectCompanyAction :: Int -> Effect Unit
+selectCompanyAction idx = void $ storeBundle.dispatch (SelectCompany idx)
 
 setActiveTab :: String -> Effect Unit
 setActiveTab t = void $ storeBundle.dispatch (SetActiveTab t)
@@ -91,7 +94,8 @@ generate :: Effect Unit
 generate = do
   state <- readStore storeBundle.store
   let selectedPers = filter (\p -> p.pName `elem` state.selectedPersonas) state.personas
-  fetchCalendar state.currentWeek state.selectedSubreddits state.selectedKeywords state.company.postsPerWeek selectedPers
+  let ppw = fromMaybe 0 $ (_.postsPerWeek <$> (state.companies !! state.selectedCompanyIndex))
+  fetchCalendar state.currentWeek state.selectedSubreddits state.selectedKeywords ppw selectedPers
 
 nextWeek :: Effect Unit
 nextWeek = do
