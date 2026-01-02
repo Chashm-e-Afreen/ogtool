@@ -62,11 +62,3 @@ jobs:
               --restart always \
               -p 4172:4172 \
               $IMAGE_ID:latest
-
-      - name: Delete untagged images
-        uses: actions/delete-package-versions@v5
-        with:
-          package-name: 'ogtool-f'
-          package-type: 'container'
-          min-versions-to-keep: 1
-          delete-only-untagged-versions: 'true'
