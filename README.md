@@ -48,5 +48,4 @@ Uses the standard `Dockerfile` to build the optimized production assets and serv
 - **Svelte Reactivity and Markup**: This app leverages Svelte's markup to build reusable UI components while keeping all the business logic in type-safe PureScript.
 - **Type-Safe State and Actions**: The Increment and Decrement operations are defined as PureScript Sum Types while the State is a Purescript Record  fs(Product type).
 - **TailwindCSS Styling**: This project includes TailwindCSS V4 for styling.
-- **Dark and Light Mode**: Simple dark and light modes are available for the UI.
 
