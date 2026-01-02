@@ -26,7 +26,9 @@ RUN pnpm install
 COPY . .
 RUN spago build
 
-RUN pnpm build
+RUN --mount=type=secret,id=VITE_API_URL \
+    VITE_API_URL=$(cat /run/secrets/VITE_API_URL) \
+    pnpm build
 
 EXPOSE 4172
 
