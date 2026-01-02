@@ -30,6 +30,7 @@ jobs:
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
         run: |
+          sudo podman system prune -a -f
           IMAGE_ID=$(echo $REGISTRY/$IMAGE_NAME | tr '[A-Z]' '[a-z]')
 
           podman build \
