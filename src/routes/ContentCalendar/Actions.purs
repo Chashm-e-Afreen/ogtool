@@ -6,6 +6,7 @@ module ContentCalendar.Actions
 
 import Prelude
 
+import ContentCalendar.Env (apiUrl)
 import ContentCalendar.Store (storeBundle)
 import ContentCalendar.Types (Action(..), FinalCalendar, Persona)
 import Data.Array (filter, elem, (!!))
@@ -21,9 +22,9 @@ import Store (readStore)
 import Web.Event.Event (Event)
 import Web.Event.Event as Event
 import Web.HTML (window)
-import Web.HTML.Window (alert)
 import Web.HTML.HTMLInputElement as Input
 import Web.HTML.HTMLTextAreaElement as TextArea
+import Web.HTML.Window (alert)
 import Yoga.JSON (readJSON, writeJSON)
 
 toggleSubreddit :: String -> Effect Unit
@@ -80,7 +81,7 @@ fetchCalendar week subs kws ppw pers = do
   void $ storeBundle.dispatch (SetLoading true)
   launchAff_ do
     let payload = { reqWeekIndex: week, reqSubreddits: subs, reqKeywords: kws, reqPostsPerWeek: ppw, reqPersonas: pers }
-    resp <- fetch "http://localhost:3000/generate-week" 
+    resp <- fetch (apiUrl <> "/generate-week")
               { method: POST
               , body: writeJSON payload
               , headers: { "Content-Type": "application/json" }

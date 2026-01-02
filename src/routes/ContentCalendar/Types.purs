@@ -86,13 +86,13 @@ availableCompanies =
   , { name: "DevFlow"
     , website: "https://devflow.io"
     , description: "Streamlined CI/CD pipeline visualizer for engineering managers who need to explain deployment bottlenecks to non-technical stakeholders."
-    , subreddits: ["r/devops", "r/softwareengineering", "r/programming", "r/management"]
+    , subreddits: ["r/devops", "r/softwareengineering", "r/programming", "r/management", "r/aws", "r/azure", "r/docker", "r/kubernetes", "r/jenkins", "r/gitlab", "r/github", "r/sysadmin", "r/technology", "r/softwaredevelopment", "r/agile", "r/scrum", "r/cto", "r/saas", "r/EngineeringManager", "r/TechLead"]
     , postsPerWeek: 2
     }
   , { name: "EcoTrack"
     , website: "https://ecotrack.app"
     , description: "Personal carbon footprint tracker that uses banking data to suggest lifestyle changes. Gamifies sustainability for Gen Z users."
-    , subreddits: ["r/sustainability", "r/environment", "r/eco", "r/zero-waste"]
+    , subreddits: ["r/sustainability", "r/environment", "r/eco", "r/zero-waste", "r/climate", "r/ClimateOffensive", "r/solarpunk", "r/minimalism", "r/vegan", "r/vegetarian", "r/frugal", "r/Anticonsumption", "r/CircularEconomy", "r/RenewableEnergy", "r/GreenTechnology", "r/consciousconsumption", "r/ethicalfashion", "r/GenZ", "r/lifestyle"]
     , postsPerWeek: 5
     }
   ]

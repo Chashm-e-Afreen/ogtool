@@ -172,7 +172,7 @@
 			<!-- Keywords -->
 			<div>
 				<label class="mb-2 block text-[11px] font-bold tracking-tight text-gray-500 uppercase"
-					>Contextual Lenses</label
+					>Queries to Target</label
 				>
 				<textarea
 					value={$keywordsString}

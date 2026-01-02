@@ -28,6 +28,6 @@ RUN spago build
 
 RUN pnpm build
 
-EXPOSE 4173
+EXPOSE 4172
 
 CMD ["pnpm", "preview", "--host"]
